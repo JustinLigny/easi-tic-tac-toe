@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  backend:
+    build: ./backend
+    container_name: tictactoe-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - tictactoe-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+  frontend:
+    build: ./frontend
+    container_name: tictactoe-frontend
+    ports:
+      - "4200:80"
+    networks:
+      - tictactoe-network
+    depends_on:
+      - backend
+
+networks:
+  tictactoe-network:
+    driver: bridge
