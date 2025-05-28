@@ -1,0 +1,65 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="startGame()"
+  class="w-full flex flex-col items-center gap-4">
+
+  <div formGroupName="player" class="w-full flex flex-col gap-4">
+    <div class="flex flex-col gap-2">
+      <label for="symbol" class="font-medium">Your symbol</label>
+      <p-selectButton
+        id="symbol"
+        [options]="playerSymbolOptions"
+        [allowEmpty]="false"
+        [optionLabel]="undefined"
+        [optionValue]="undefined"
+        [multiple]="false"
+        [style]="{ display: 'flex' }"
+        formControlName="symbol"
+        class="w-full">
+      </p-selectButton>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="flex flex-col gap-2">
+      <label for="gridSize" class="font-medium">Grid size</label>
+      <p-selectButton
+        id="gridSize"
+        [options]="gridSizeOptions"
+        [allowEmpty]="false"
+        (onChange)="updateWinCondition($event)"
+        optionLabel="label"
+        optionValue="value"
+        formControlName="gridSize"
+        class="w-full"
+        [style]="{ display: 'flex' }">
+      </p-selectButton>
+    </div>
+  </div>
+
+  <div class="w-full">
+    <div class="flex flex-col gap-2">
+      <label for="winCondition" class="font-medium">Win condition</label>
+      <p-inputNumber
+        id="winCondition"
+        [min]="defaultMinWinCondition"
+        [max]="getGridSize()"
+        [showButtons]="true"
+        buttonLayout="horizontal"
+        [step]="1"
+        inputId="win-condition"
+        class="p-fluid w-full"
+        formControlName="winCondition">
+      </p-inputNumber>
+    </div>
+  </div>
+
+  <p-button
+    severity="primary"
+    (onClick)="startGame()"
+    [disabled]="form.invalid"
+    class="p-fluid w-full mt-4"
+    label="Start">
+  </p-button>
+
+</form>
